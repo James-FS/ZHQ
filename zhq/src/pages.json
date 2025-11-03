@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "我"
 			}
 		},
 		{
@@ -11,8 +11,59 @@
 			"style": {
 				"navigationBarTitleText": "组队"
 			}
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		},
+		{
+			"path":"pages/square/square",
+			"style":{
+				"navigationBarTitleText":"广场"
+			}
+		},
+		{
+			"path":"pages/user/user",
+			"style":{
+				"navigationBarTitleText":"个人中心"
+			}
 		}
 	],
+
+	"tabBar": {
+    "color": "#212121",
+    "selectedColor": "#03a9f4",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+	  {
+		"pagePath": "pages/square/square",
+		"text": "广场",
+		"iconPath": "static/img/广场.png"
+	  },
+	  {
+		"pagePath": "pages/message/message",
+		"text": "消息",
+		"iconPath": "static/img/消息.png"
+		
+	  },
+
+      {
+        "pagePath": "pages/teaming/teaming",
+        "text": "组队",
+		"iconPath": "static/img/组队.png"
+      },
+	  
+	  {
+        "pagePath": "pages/index/index",
+        "text": "我",
+		"iconPath": "static/img/我.png"
+      }
+    ]
+  },
+
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

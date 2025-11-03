@@ -2,7 +2,7 @@ import {
 	createSSRApp
 } from "vue";
 import App from "./App.vue";
-import './assets/styles/global.css';
+import './static/styles/global.css';
 export function createApp() {
 	const app = createSSRApp(App);
 	return {

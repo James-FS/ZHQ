@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 5054889 */
+  src: url('@static/iconfont/iconfont.woff2?t=1762139302648') format('woff2'),
+       url('@static/iconfont/iconfont.woff?t=1762139302648') format('woff'),
+       url('@static/iconfont/iconfont.ttf?t=1762139302648') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xiaoxi:before {
+  content: "\e68d";
+}
+
+.icon-guangchang:before {
+  content: "\ea70";
+}
+
+.icon-massage:before {
+  content: "\e76d";
+}
+
+.icon-xiaoxi1:before {
+  content: "\e614";
+}
+
+.icon-xiaoxi2:before {
+  content: "\e60d";
+}
+
+.icon-guangchang1:before {
+  content: "\e600";
+}
+
+.icon-xiaoxi3:before {
+  content: "\e60a";
+}
+
+.icon-nirvana_group_:before {
+  content: "\e601";
+}
+
+.icon-zudui:before {
+  content: "\e61a";
+}
+
+.icon-zudui1:before {
+  content: "\e615";
+}
+
+.icon-wode1:before {
+  content: "\e65d";
+}
+
+.icon-wode2:before {
+  content: "\e7ee";
+}
+
+.icon-zudui2:before {
+  content: "\e673";
+}
+
