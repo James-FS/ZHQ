@@ -252,11 +252,6 @@ export default {
     goBack() {
       uni.navigateBack();
     },
-    goToDebounceDemo() {
-      uni.navigateTo({
-        url: '/pages/debounce-demo/debounce-demo'
-      });
-    }
   },
 }
 </script>
