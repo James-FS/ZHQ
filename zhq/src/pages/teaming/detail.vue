@@ -16,8 +16,19 @@
 
         <view class="detail-context">
           <mp-html :content="html" />
-          <application></application>
+          <application 
+          :title="`${mockContext.title}`"
+          :type="'green'"
+          </application>
         </view>
+    </view>
+
+    <view class="detail-tag">
+      <TagComponent
+      v-for="(tags,index) in mockContext.tags"
+      :key="index"
+      :tagText="tags"
+      ></TagComponent>
     </view>
   </view>
 </template>
@@ -26,6 +37,7 @@
 import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import {Application} from '@/components/Application.vue';
+import TagComponent from '@/components/Tags.vue';
 const id=ref(null);
 onLoad((options)=>{
   id.value=options.id;
@@ -49,12 +61,18 @@ const html = ref(`
   </div>
 `)
 
-let mockData={
-  title:'这是一个标题',
-  context:'',
+let mockContext=ref({
+  title:'CST2023企业',
+  context:'html',
   avator:'/static/img/wechat_2025-11-05_092504_970.png',
   name:'作者名称',
-}
+  tags:['标签一','标签二','标签三','标签四','标签五','标签六']
+});
+
+let mockAuthor=ref({
+  name:'作者名称',
+  avator:'/static/img/wechat_2025-11-05_092504_970.png',
+});
 </script>
 
 <style lang="scss" scoped>
@@ -71,6 +89,7 @@ let mockData={
   border: 1rpx solid #e5e5e5;
   box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
   margin-top: 20rpx;
+  gap:10rpx;
 }
 .detail-container{
   display: flex;
