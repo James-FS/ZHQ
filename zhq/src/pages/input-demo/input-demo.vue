@@ -109,6 +109,33 @@
         />
       </view>
       
+      <!-- 多行输入演示 -->
+      <view class="demo-section">
+        <text class="section-title">多行输入</text>
+        <text class="section-desc">注意：密码类型的输入框不支持多行输入，即使设置了multiline也会使用单行模式</text>
+        
+        <common-input
+          label="简介"
+          :multiline="true"
+          placeholder="请输入个人简介..."
+          v-model:value="form.description"
+          :show-word-limit="true"
+          :clearable="false"
+        />
+        
+        <common-input
+          label="详细地址"
+          :multiline="true"
+          border-style="line"
+          placeholder="请输入详细地址请你输入详细地址请你输入详细地址请你输入详细地址请你输入详细地址请你输入详细地址"
+          v-model:value="form.address"
+          :maxlength="500"
+          :show-word-limit="true"
+        />
+        
+        
+      </view>
+      
       <!-- 表单验证演示 -->
       <view class="demo-section">
         <text class="section-title">表单验证</text>
@@ -166,7 +193,10 @@ export default {
         cardStyle: '',
         disabled: '禁用状态演示',
         readonly: '只读状态演示',
-        noClear: '不可清空演示'
+        noClear: '不可清空演示',
+        description: '',
+        address: '',
+        remarks: '',
       },
       
       usernameRules: [
@@ -260,7 +290,11 @@ export default {
         cardStyle: '',
         disabled: '禁用状态演示',
         readonly: '只读状态演示',
-        noClear: '不可清空演示'
+        noClear: '不可清空演示',
+        description: '',
+        address: '',
+        remarks: '',
+        passwordTest: ''
       }
       
       uni.showToast({
@@ -315,6 +349,17 @@ export default {
   margin-bottom: 40rpx;
   padding-bottom: 20rpx;
   border-bottom: 4rpx solid #F0F0F0;
+}
+
+.section-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background-color: #F8F9FA;
+  border-radius: 8rpx;
+  border-left: 6rpx solid #409EFF;
 }
 
 .demo-buttons {
