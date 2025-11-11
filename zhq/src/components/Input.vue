@@ -15,6 +15,7 @@
  * rules: 验证规则数组（可选）
  * size: 尺寸 - medium（默认）, small, large
  * borderStyle: 边框风格 - line（默认）, card
+ * multiline: 是否多行显示 - false（默认）
  */ -->
 <template>
   <view class="input-wrapper" :class="[
@@ -24,7 +25,8 @@
       'input-disabled': disabled,
       'input-readonly': readonly,
       'input-error': hasError,
-      'input-focused': isFocused
+      'input-focused': isFocused,
+      'input-multiline': shouldUseMultiline
     }
   ]">
     <!-- 主要内容区域 - 标签和输入框在同一行 -->
@@ -37,13 +39,37 @@
       
       <!-- 输入框容器 -->
       <view class="input-container">
+      <!-- 只读状态：使用text显示 -->
+      <text 
+        v-if="readonly"
+        class="input-field readonly-text"
+        :class="{ 'has-value': value }"
+      >{{ value || placeholder }}</text>
+      
+      <!-- 多行输入框 -->
+      <textarea
+        v-else-if="shouldUseMultiline"
+        class="input-field textarea-field"
+        :value="value"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :maxlength="maxlength"
+        :auto-height="true"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @confirm="handleConfirm"
+        @linechange="handleLineChange"
+      />
+      
+      <!-- 正常状态：使用input -->
       <input
+        v-else
         class="input-field"
         :type="currentInputType"
         :value="value"
         :placeholder="placeholder"
         :disabled="disabled"
-        :readonly="readonly"
         :maxlength="maxlength"
         @input="handleInput"
         @focus="handleFocus"
@@ -62,9 +88,9 @@
           <text class="clear-icon">×</text>
         </view>
         
-        <!-- 密码显示切换按钮 -->
+        <!-- 密码显示切换按钮（单行时才显示） -->
         <view 
-          v-if="type === 'password' && showPassword"
+          v-if="!multiline && type === 'password' && showPassword"
           class="action-btn password-btn"
           @click="togglePasswordVisibility"
         >
@@ -170,6 +196,11 @@ export default {
       type: String,
       default: 'line',
       validator: value => ['line', 'card'].includes(value)
+    },
+    // 是否多行显示
+    multiline: {
+      type: Boolean,
+      default: false
     }
   },
   
@@ -188,6 +219,11 @@ export default {
         return this.isPasswordVisible ? 'text' : 'password'
       }
       return this.type
+    },
+    
+    // 判断是否应该使用多行输入
+    shouldUseMultiline() {
+      return this.multiline && this.type !== 'password'
     },
     
     currentLength() {
@@ -218,6 +254,11 @@ export default {
     
     handleConfirm(e) {
       this.$emit('confirm', e)
+    },
+    
+    handleLineChange(e) {
+      // 处理多行输入框行数变化
+      this.$emit('linechange', e)
     },
     
     handleClear() {
@@ -296,6 +337,29 @@ export default {
 <style scoped lang = "scss">
   .input-wrapper{
     margin-bottom:16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    // 多行输入框样式
+    &.input-multiline {
+      .input-main {
+        align-items: flex-start;
+      }
+      
+      .input-container {
+        min-height: auto;
+        height: auto;
+        align-items: flex-start;
+        padding: 12px;
+        padding-top: 0;
+        overflow: visible;
+      }
+      
+      .input-actions {
+        margin-top: 0;
+      }
+    }
 
       // 尺寸样式
   &.input-small .input-container {
@@ -305,6 +369,11 @@ export default {
     }
   }
   
+  &.input-small.input-multiline .input-container {
+    min-height: auto;
+    height: auto;
+  }
+  
   &.input-medium .input-container {
     height: 44px;
     .input-field {
@@ -312,11 +381,21 @@ export default {
     }
   }
   
+  &.input-medium.input-multiline .input-container {
+    min-height: auto;
+    height: auto;
+  }
+  
   &.input-large .input-container {
     height: 52px;
     .input-field {
       font-size: 16px;
     }
+  }
+  
+  &.input-large.input-multiline .input-container {
+    min-height: auto;
+    height: auto;
   }
 
   // 边框风格
@@ -384,6 +463,9 @@ export default {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .input-label {
@@ -412,6 +494,8 @@ export default {
     padding: 0 12px;
     position: relative;
     flex: 1;
+    width: 0; /* 强制flex子元素收缩 */
+    min-width: 0; /* 允许收缩到0 */
   }
 
 .input-field {
@@ -423,6 +507,46 @@ export default {
   
   &::placeholder {
     color: #C7C7C7;
+  }
+}
+
+.textarea-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #333333;
+  line-height: 1.5;
+  resize: none;
+  font-family: inherit;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: visible;
+  margin-top: 1.2px;
+  
+  &::placeholder {
+    color: #C7C7C7;
+    line-height: 1.5;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+}
+
+.readonly-text {
+  flex: 1;
+  background: transparent;
+  line-height: inherit;
+  font-size: inherit;
+  color: #C7C7C7; // 默认显示占位符颜色
+  
+  &.has-value {
+    color: #666666; // 有值时显示内容颜色
   }
 }
 
@@ -439,7 +563,6 @@ export default {
   justify-content: center;
   width: 20px;
   height: 20px;
-  cursor: pointer;
   
   .clear-icon {
     font-size: 18px;

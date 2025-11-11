@@ -3,7 +3,9 @@
 		{
 			"path":"pages/user/user",
 			"style":{
-				"navigationBarTitleText":"个人中心"
+				"navigationBarTitleText":"个人中心",
+				"navigationStyle": "custom",
+                "navigationBarTextStyle": "white"
 			}
 		},
 		{
@@ -11,6 +13,7 @@
 			"style": {
 				"navigationBarTitleText": "我的队伍"
 			}
+			
 		},
 		{
 			"path": "pages/teaming/detail",
@@ -47,8 +50,26 @@
 			"style":{
 				"navigationBarTitleText":"输入框演示"
 			}
+		},
+		{
+			"path":"pages/select-demo/select-demo",
+			"style":{
+				"navigationBarTitleText":"选择框演示"
+			}
+		},
+		{
+			"path":"pages/history/history",
+			"style":{
+				"navigationBarTitleText":"浏览历史"
+			}
+		},
+		{
+			"path":"pages/settings/settings",
+			"style":{
+				"navigationBarTitleText":"系统设置"
+			}
+			
 		}
-		
 	],
 
 	"tabBar": {
