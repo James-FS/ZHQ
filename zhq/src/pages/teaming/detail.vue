@@ -41,7 +41,7 @@
           :key="index"
           :tagText="tags"
         ></TagComponent>
-        <TagsInput v-model:tags="mockContext.tags" />
+        <view style="margin-bottom: 1px;"><TagsInput v-model:tags="mockContext.tags" /></view>
       </view>
     </view>
   </view>
@@ -261,5 +261,6 @@ let mockAuthor=ref({
   padding: 0 20rpx 20rpx 20rpx;
   margin: 0;
   box-sizing: border-box;
+  justify-content: center;  // ✅ 保持这个，会让每行的内容居中
 }
 </style>
