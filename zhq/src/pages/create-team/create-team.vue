@@ -173,14 +173,22 @@ export default {
       eventOptions: [
         { label: "大学生创新创业比赛", value: "innovation_competition" },
         { label: "挑战杯", value: "challenge_cup" },
+<<<<<<< HEAD
         { label: "互联网+", value: "internet_plus" },
       ],
+<<<<<<< HEAD
       eventTagMap: {
         innovation_competition: ["创业", "产品"],
         challenge_cup: ["科技", "创新"],
         internet_plus: ["互联网", "前端"],
       },
       newTagText: "",
+=======
+=======
+        { label: "互联网+", value: "internet_plus" }
+      ]
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
+>>>>>>> develop
     };
   },
   onLoad() {
@@ -199,6 +207,7 @@ export default {
     onEventInput(value) {
       // 处理赛事选择变化
       this.form.event = value;
+<<<<<<< HEAD
       // 自动生成标签
       const recommendedTags = this.eventTagMap[value] || [];
       recommendedTags.forEach((tag) => {
@@ -206,7 +215,13 @@ export default {
           this.form.tags.push(tag);
         }
       });
+=======
+<<<<<<< HEAD
+>>>>>>> develop
       console.log("选择的赛事:", value);
+=======
+      console.log('选择的赛事:', value);
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
     },
     addTag() {
       if (this.newTagText.trim() && !this.form.tags.includes(this.newTagText)) {
@@ -312,7 +327,11 @@ export default {
 /* 容器改为填充整个页面 */
 .container {
   width: 100%;
+<<<<<<< HEAD
   height: 100vh;
+=======
+  height:100vh;
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
   margin: 0;
   background: #fff;
   border: none;
@@ -374,12 +393,23 @@ export default {
   gap: 12rpx;
   padding: 25rpx 12rpx 0 12rpx;
   box-sizing: border-box;
+<<<<<<< HEAD
   width: 100%;
+=======
+<<<<<<< HEAD
+>>>>>>> develop
 
   .field {
     flex: 1;
     height: auto;
     line-height: normal;
+=======
+  
+  .field {
+    flex: 1;
+    height: auto; 
+    line-height: normal; 
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
     padding: 0 24rpx;
     border: none;
     background: transparent;
@@ -389,6 +419,7 @@ export default {
   }
 }
 
+<<<<<<< HEAD
 /* 箭头按钮样式（与Select.vue一致） */
 .arrow-btn {
   display: flex;
@@ -412,6 +443,12 @@ export default {
   margin-bottom: 50rpx;
 }
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
+>>>>>>> develop
 .field {
   flex: 1;
   height: 76rpx;
@@ -423,6 +460,7 @@ export default {
   align-items: center;
 }
 
+<<<<<<< HEAD
 /* 左下角标签栏（固定位置） */
 .tag-corner {
   position: fixed;
@@ -433,6 +471,14 @@ export default {
 }
 
 .tag-list {
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
+/* 底部操作条位置调整（仍固定）*/
+.buttons {
+>>>>>>> develop
   display: flex;
   flex-wrap: wrap;
   gap: 12rpx;
@@ -577,4 +623,9 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
 </style>

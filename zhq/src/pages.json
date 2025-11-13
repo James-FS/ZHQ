@@ -73,7 +73,19 @@
 			"style": {
 				"navigationBarTitleText": "系统设置"
 			}
+<<<<<<< HEAD
+=======
+			
+		},
+		{
+			"path":"pages/collection/collection",
+			"style":{
+				"navigationBarTitleText":"我的收藏"
+			}
+			
+>>>>>>> develop
 		}
+
 	],
 	"tabBar": {
 		"color": "#212121",
