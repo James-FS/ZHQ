@@ -119,15 +119,24 @@ export default {
       eventOptions: [
         { label: "大学生创新创业比赛", value: "innovation_competition" },
         { label: "挑战杯", value: "challenge_cup" },
+<<<<<<< HEAD
         { label: "互联网+", value: "internet_plus" },
       ],
+=======
+        { label: "互联网+", value: "internet_plus" }
+      ]
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
     };
   },
   methods: {
     onEventInput(value) {
       // 处理赛事选择变化
       this.form.event = value;
+<<<<<<< HEAD
       console.log("选择的赛事:", value);
+=======
+      console.log('选择的赛事:', value);
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
     },
     handleAddEvent(newOption) {
       // 处理用户添加的新赛事选项
@@ -169,7 +178,11 @@ export default {
 /* 容器改为填充整个页面 */
 .container {
   width: 100%;
+<<<<<<< HEAD
   height: 100vh;
+=======
+  height:100vh;
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
   margin: 0;
   background: #fff;
   border: none;
@@ -205,11 +218,19 @@ export default {
 .multiline-row {
   padding: 28rpx 12rpx;
   box-sizing: border-box;
+<<<<<<< HEAD
 
   .field {
     flex: 1;
     height: auto;
     line-height: normal;
+=======
+  
+  .field {
+    flex: 1;
+    height: auto; 
+    line-height: normal; 
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
     padding: 0 24rpx;
     border: none;
     background: transparent;
@@ -219,6 +240,10 @@ export default {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
 .field {
   flex: 1;
   height: 76rpx;
@@ -230,6 +255,10 @@ export default {
   align-items: center;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
 /* 底部操作条位置调整（仍固定）*/
 .buttons {
   display: flex;
@@ -238,4 +267,9 @@ export default {
   justify-content: space-between;
   border: box-sizing;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
 </style>
