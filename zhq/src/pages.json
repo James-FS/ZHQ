@@ -73,8 +73,6 @@
 			"style": {
 				"navigationBarTitleText": "系统设置"
 			}
-<<<<<<< HEAD
-=======
 			
 		},
 		{
@@ -83,7 +81,6 @@
 				"navigationBarTitleText":"我的收藏"
 			}
 			
->>>>>>> develop
 		}
 
 	],
