@@ -120,11 +120,12 @@ function onUpdate(i) {
 
 /* 标签统一样式 */
 .tag-component {
+  margin-left: 10rpx;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40rpx;
-  padding: 0 28rpx;
+  height: 38rpx;
+  padding: 0 10rpx;
   border-radius: 10rpx;
   background: #e4eef4;
   border: 2rpx solid #c2d9ff;
@@ -148,7 +149,8 @@ function onUpdate(i) {
   align-items: center;
   justify-content: center;
   gap: 0;
-  min-width: 0;
+  max-width: 600rpx;
+  min-width: 100rpx;
   height: 40rpx;
 }
 
@@ -168,7 +170,7 @@ function onUpdate(i) {
   margin-right: -12rpx;
   font-weight: bold;
   cursor: pointer;
-  font-size: 36rpx;
+  font-size: 30rpx;
   line-height: 1;
   transition: color 0.2s;
   flex-shrink: 0;
@@ -178,14 +180,11 @@ function onUpdate(i) {
   height: 40rpx;
 }
 
-.tag-delete:hover {
-  color: #e74c3c;
-}
 
 .tag-input {
   border: none;
   background: transparent;
-  font-size: 28rpx;
+  font-size: 14px;
   color: inherit;
   outline: none;
   padding: 0;
