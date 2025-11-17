@@ -9,6 +9,12 @@
 			}
 		},
 		{
+			"path":"pages/test/test",
+			"style":{
+				"navigationBarTitleText":"测试"
+			}
+		},
+		{
 			"path": "pages/teaming/teaming",
 			"style": {
 				"navigationBarTitleText": "我的队伍"
@@ -88,7 +94,6 @@
 			"style":{
 				"navigationBarTitleText":"我的简历"
 			}
-			
 		}
 	],
 
