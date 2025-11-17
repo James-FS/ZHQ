@@ -14,6 +14,7 @@
         <!-- 创建按钮 -->
         <view class="create-btn" @click="checkFormAndSubmit">创建</view>
       </view>
+
       <form class="form" @submit.prevent="onSubmit">
         <view class="row">
           <common-input
@@ -39,6 +40,7 @@
           />
         </view>
         <view class="multiline-row">
+          <!-- 项目内容输入框：添加点击事件和只读属性，不改动样式 -->
           <common-input
             label="项目内容"
             class="field"
@@ -48,6 +50,8 @@
             v-model:value="form.content"
             :show-word-limit="false"
             :clearable="false"
+            :readonly="true"
+            @click="openContentEditor"
           />
           <!-- 编辑器入口箭头 -->
           <view class="arrow-btn" @click="openContentEditor">
@@ -124,22 +128,8 @@
 
       <!-- 左下角标签栏（固定位置，不与按钮重合） -->
       <view class="tag-corner">
-        <view class="tag-list">
-          <view v-for="(t, idx) in form.tags" :key="t + idx" class="tag-item">
-            <text class="tag-icon">#</text>
-            <text class="tag-text">{{ t }}</text>
-            <view class="tag-delete" @click="removeTag(idx)">×</view>
-          </view>
-        </view>
-        <view class="tag-input-row">
-          <input
-            v-model="newTagText"
-            class="tag-input"
-            placeholder="添加标签"
-            @confirm="addTag"
-          />
-          <view class="tag-add-btn" @click="addTag">添加</view>
-        </view>
+        <!-- 替换原标签逻辑为TagsInput组件 -->
+        <TagsInput v-model="form.tags" />
       </view>
     </view>
   </view>
@@ -150,10 +140,12 @@
 <script>
 import { CommonInput } from "@/components/Input.vue";
 import { CommonSelect } from "@/components/Select.vue";
+import TagsInput from "@/components/TagsInput.vue";
 export default {
   components: {
     CommonInput,
     CommonSelect,
+    TagsInput,
   },
   data() {
     return {
@@ -173,22 +165,14 @@ export default {
       eventOptions: [
         { label: "大学生创新创业比赛", value: "innovation_competition" },
         { label: "挑战杯", value: "challenge_cup" },
-<<<<<<< HEAD
         { label: "互联网+", value: "internet_plus" },
       ],
-<<<<<<< HEAD
       eventTagMap: {
         innovation_competition: ["创业", "产品"],
         challenge_cup: ["科技", "创新"],
         internet_plus: ["互联网", "前端"],
       },
       newTagText: "",
-=======
-=======
-        { label: "互联网+", value: "internet_plus" }
-      ]
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
->>>>>>> develop
     };
   },
   onLoad() {
@@ -207,7 +191,6 @@ export default {
     onEventInput(value) {
       // 处理赛事选择变化
       this.form.event = value;
-<<<<<<< HEAD
       // 自动生成标签
       const recommendedTags = this.eventTagMap[value] || [];
       recommendedTags.forEach((tag) => {
@@ -215,22 +198,7 @@ export default {
           this.form.tags.push(tag);
         }
       });
-=======
-<<<<<<< HEAD
->>>>>>> develop
       console.log("选择的赛事:", value);
-=======
-      console.log('选择的赛事:', value);
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
-    },
-    addTag() {
-      if (this.newTagText.trim() && !this.form.tags.includes(this.newTagText)) {
-        this.form.tags.push(this.newTagText);
-        this.newTagText = "";
-      }
-    },
-    removeTag(index) {
-      this.form.tags.splice(index, 1);
     },
     openContentEditor() {
       // 跳转到富文本编辑器
@@ -311,6 +279,9 @@ export default {
       // 所有字段校验通过，执行提交
       this.onSubmit();
     },
+    onUsernameInput() {
+      // 原输入监听方法，保持不变
+    },
   },
 };
 </script>
@@ -327,47 +298,20 @@ export default {
 /* 容器改为填充整个页面 */
 .container {
   width: 100%;
-<<<<<<< HEAD
   height: 100vh;
-=======
-  height:100vh;
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
   margin: 0;
   background: #fff;
   border: none;
   box-sizing: border-box;
   position: relative;
 }
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20rpx 30rpx;
-  box-sizing: border-box;
-  width: 100%;
-}
-.back-btn {
-  width: 40rpx;
-  height: 40rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.back-icon {
-  width: 32rpx;
-  height: 32rpx;
-}
+
+/* 标题向上对齐，保留视觉层次 */
 .page-title {
-  font-size: 36rpx; /* 可根据设计调整大小 */
+  font-size: 44rpx;
   font-weight: 700;
   color: #2a2a2a;
-}
-.create-btn {
-  padding: 8rpx 20rpx;
-  background: #1890ff;
-  color: #fff;
-  border-radius: 8rpx;
-  font-size: 28rpx;
+  margin: 20rpx;
 }
 
 .row {
@@ -393,23 +337,12 @@ export default {
   gap: 12rpx;
   padding: 25rpx 12rpx 0 12rpx;
   box-sizing: border-box;
-<<<<<<< HEAD
   width: 100%;
-=======
-<<<<<<< HEAD
->>>>>>> develop
 
   .field {
     flex: 1;
     height: auto;
     line-height: normal;
-=======
-  
-  .field {
-    flex: 1;
-    height: auto; 
-    line-height: normal; 
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
     padding: 0 24rpx;
     border: none;
     background: transparent;
@@ -419,7 +352,6 @@ export default {
   }
 }
 
-<<<<<<< HEAD
 /* 箭头按钮样式（与Select.vue一致） */
 .arrow-btn {
   display: flex;
@@ -443,12 +375,6 @@ export default {
   margin-bottom: 50rpx;
 }
 
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
->>>>>>> develop
 .field {
   flex: 1;
   height: 76rpx;
@@ -460,7 +386,6 @@ export default {
   align-items: center;
 }
 
-<<<<<<< HEAD
 /* 左下角标签栏（固定位置） */
 .tag-corner {
   position: fixed;
@@ -471,14 +396,6 @@ export default {
 }
 
 .tag-list {
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
-/* 底部操作条位置调整（仍固定）*/
-.buttons {
->>>>>>> develop
   display: flex;
   flex-wrap: wrap;
   gap: 12rpx;
@@ -623,9 +540,18 @@ export default {
     }
   }
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> da728d7572747ac857ab8f18ccf185a7f1c2429c
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+.back-btn {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+}
 </style>
