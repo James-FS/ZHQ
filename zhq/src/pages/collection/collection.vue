@@ -123,6 +123,21 @@ function getDetail(id){
   <view class="pageHolder">
     <view class="content">
 
+      <view class="filter-bar">
+        <view class="search-part">
+          <i class="iconfont icon-sousuo"></i>
+          <view class="search-input">
+            <CommonInput
+              type="text"
+              borderStyle="card"
+              size="small"
+            ></CommonInput>
+          </view>
+          <i class="iconfont icon-shaixuan"></i>
+        </view>
+
+      </view>
+
       <view class="list-container">
         <view class="list-item" v-for="item in mockData" :key="item.id">
           <view class="item-body">
@@ -148,7 +163,6 @@ function getDetail(id){
               :tagText="tag"
             />
           </view>
-          
           <view class="item-status">
             <i class="iconfont icon-zudui"></i>
             <text>3/5人</text>
@@ -247,14 +261,13 @@ function getDetail(id){
       border: 1rpx solid #e5e5e5;
       box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
       justify-content: space-between;
-      padding: 0rpx;
+      padding: 20rpx;
       .item-body{
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         gap:20rpx;
-        padding:20rpx;
         .item-content{
           display: flex;
           flex-direction: column;
@@ -296,13 +309,9 @@ function getDetail(id){
         margin-left: -10rpx;
         margin-right: 10rpx;
         margin-top: 10rpx;
-        padding:0 20rpx;
       }
 
       .item-status{
-          border-top: 2rpx solid #d9d9d9;
-          background-color: #fafafa;
-          padding:20rpx;
           display: flex;
           justify-content: flex-start;
           margin-top: 10rpx;
