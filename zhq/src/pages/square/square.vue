@@ -114,7 +114,7 @@ function getDetail(id){
 async function getTeamList(){
   try{
     const res = await uni.request({
-      url:`http://localhost:8080/api/v1/teams`,
+      url:`${global.API_BASE_URL}/api/v1/teams`,
       method:'GET'
     })
 
