@@ -110,7 +110,7 @@ function getDetail(id){
     url:`/pages/teaming/detail?id=${id}`
   })
 }
-
+//示例接口
 async function getTeamList(){
   try{
     const res = await uni.request({
@@ -180,7 +180,7 @@ onMounted(()=>{
             <!-- <view class="item-img">       文字       </view> -->
                 <view class="item-content" @click="getDetail(item.id)">
                   <view class="author-info">
-                    <img class="author-avator" :src="item.creato_avatar" mode="aspectFill"></img>
+                    <img class="author-avator" :src="item.creator_avatar" mode="aspectFill"></img>
                     <view class="author-name">{{ item.creator_nickname }}</view>
                   </view>
                   <view class="item-title">{{ item.team_name }}</view>
