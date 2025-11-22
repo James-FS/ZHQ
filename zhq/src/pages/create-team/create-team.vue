@@ -50,7 +50,9 @@
             v-model:value="form.content"
             :show-word-limit="false"
             :clearable="false"
-            :readonly="true"
+            @focus.prevent="openContentEditor"
+            @input.prevent=""
+            @touchstart="openContentEditor"
             @click="openContentEditor"
           />
           <!-- 编辑器入口箭头 -->

@@ -1,56 +1,57 @@
 <template>
   <view class="editor-page">
-    <!-- 顶部导航栏（微信原生导航风格） -->
+    <!-- 顶部导航栏（保持微信风格） -->
     <view class="editor-header">
       <view class="header-left" @click="goBack">
         <text class="back-icon">←</text>
-        <text class="header-title">编辑项目内容</text>
+        <text class="header-title">编辑内容</text>
       </view>
       <view class="header-right" @click="saveContent">
         <text class="save-text">保存</text>
       </view>
     </view>
 
-    <!-- 工具栏（微信官方editor推荐样式） -->
-    <view class="toolbar">
-      <button class="toolbar-btn" @click="format('bold')">
-        <text class="icon">B</text>
-      </button>
-      <button class="toolbar-btn" @click="format('italic')">
-        <text class="icon">I</text>
-      </button>
-      <button class="toolbar-btn" @click="format('underline')">
-        <text class="icon">U</text>
-      </button>
-      <view class="toolbar-separator"></view>
-      <button class="toolbar-btn" @click="insertImage">
-        <text class="icon">🖼</text>
-      </button>
-      <button class="toolbar-btn" @click="insertLink">
-        <text class="icon">🔗</text>
-      </button>
-      <button class="toolbar-btn" @click="format('clear')">
-        <text class="icon">清除</text>
-      </button>
+    <!-- 输入区域 + 底部工具栏（模拟微信输入格式） -->
+    <view class="editor-wrap">
+      <!-- 输入框 placeholder -->
+      <view class="editor-placeholder" v-if="!richContent">请输入...</view>
+      <!-- 富文本编辑区域 -->
+      <editor
+        class="editor-content"
+        id="editor"
+        :read-only="false"
+        @input="onInput"
+        @ready="onEditorReady"
+      ></editor>
     </view>
 
-    <!-- 微信官方editor组件（移除v-model，增加id用于获取上下文） -->
-    <editor
-      class="editor-content"
-      id="editor"
-      :read-only="false"
-      :placeholder="'请输入项目内容...'"
-      @input="onInput"
-      @ready="onEditorReady"
-    ></editor>
-
-    <!-- 底部字数统计 -->
-    <view class="word-count">
-      <text>{{ wordCount }} / 5000</text>
+    <!-- 底部工具栏（模拟微信输入键盘样式） -->
+    <view class="wechat-toolbar">
+      <!-- 格式工具 -->
+      <view class="tool-group">
+        <button class="tool-btn" @click="format('bold')">
+          <text class="tool-icon">B</text>
+        </button>
+        <button class="tool-btn" @click="format('italic')">
+          <text class="tool-icon">I</text>
+        </button>
+        <button class="tool-btn" @click="format('underline')">
+          <text class="tool-icon">U</text>
+        </button>
+      </view>
+      <!-- 功能工具（简化为图片插入） -->
+      <view class="tool-group">
+        <button class="tool-btn" @click="insertImage">
+          <text class="tool-icon">🖼</text>
+        </button>
+      </view>
+      <!-- 字数统计 -->
+      <view class="word-count">
+        <text>{{ wordCount }} / 5000</text>
+      </view>
     </view>
   </view>
 </template>
-
 <script>
 export default {
   data() {
@@ -101,44 +102,13 @@ export default {
         sizeType: ["compressed"],
         sourceType: ["album", "camera"],
         success(res) {
-          // 实际项目中需上传图片到服务器，这里用临时路径演示
           that.editorCtx.insertImage({
             src: res.tempFilePaths[0],
-            alt: "项目图片",
+            alt: "图片",
             success() {
               console.log("图片插入成功");
             },
           });
-        },
-      });
-    },
-
-    // 插入链接
-    insertLink() {
-      const that = this;
-      wx.showModal({
-        title: "插入链接",
-        content: "请输入链接和文字",
-        editable: true,
-        placeholderText: "格式：文字|链接",
-        success(res) {
-          if (res.confirm && res.content) {
-            const [text, url] = res.content.split("|");
-            if (text && url) {
-              that.editorCtx.insertLink({
-                url,
-                text,
-                success() {
-                  console.log("链接插入成功");
-                },
-              });
-            } else {
-              wx.showToast({
-                title: "格式错误（例：官网|https://）",
-                icon: "none",
-              });
-            }
-          }
         },
       });
     },
@@ -150,7 +120,6 @@ export default {
 
       // 限制最大字数
       if (this.wordCount > 5000) {
-        // 截断内容（简易处理，实际需更精确的截断逻辑）
         this.editorCtx.setContents({
           html: this.richContent.substring(0, 5000),
         });
@@ -182,7 +151,7 @@ export default {
         return;
       }
 
-      // 通过事件传递富文本内容
+      // 传递富文本内容
       uni.$emit("contentEdited", {
         content: this.richContent,
       });
@@ -191,7 +160,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 /* 页面容器 */
 .editor-page {
@@ -201,7 +169,7 @@ export default {
   background-color: #ffffff;
 }
 
-/* 导航栏（微信原生风格） */
+/* 导航栏（保持微信风格） */
 .editor-header {
   display: flex;
   justify-content: space-between;
@@ -228,22 +196,50 @@ export default {
 }
 
 .header-right {
-  color: #07c160; /* 微信绿色按钮风格 */
+  color: #07c160;
   font-size: 30rpx;
   padding: 8rpx 16rpx;
 }
 
-/* 工具栏（微信editor推荐样式） */
-.toolbar {
-  display: flex;
-  align-items: center;
-  padding: 8rpx 16rpx;
-  background-color: #f5f5f5;
-  border-bottom: 1rpx solid #e5e5e5;
-  flex-wrap: wrap;
+/* 编辑区域 + placeholder */
+.editor-wrap {
+  flex: 1;
+  padding: 24rpx;
+  position: relative;
 }
 
-.toolbar-btn {
+.editor-placeholder {
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  font-size: 30rpx;
+  color: #c9c9c9;
+  pointer-events: none;
+}
+
+.editor-content {
+  width: 100%;
+  min-height: 200rpx;
+  font-size: 30rpx;
+  line-height: 1.6;
+  background-color: #ffffff;
+}
+
+/* 底部工具栏（模拟微信输入键盘） */
+.wechat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 24rpx;
+  background-color: #f5f5f5;
+  border-top: 1rpx solid #e5e5e5;
+}
+
+.tool-group {
+  display: flex;
+}
+
+.tool-btn {
   width: 60rpx;
   height: 60rpx;
   display: flex;
@@ -253,37 +249,15 @@ export default {
   border: 1rpx solid #e5e5e5;
   border-radius: 8rpx;
   margin-right: 12rpx;
-  margin-bottom: 8rpx;
   font-size: 28rpx;
 }
 
-.toolbar-btn:active {
+.tool-btn:active {
   background-color: #f0f0f0;
 }
 
-.toolbar-separator {
-  width: 1rpx;
-  height: 40rpx;
-  background-color: #e5e5e5;
-  margin: 0 8rpx;
-}
-
-/* 编辑区域 */
-.editor-content {
-  flex: 1;
-  padding: 24rpx;
-  font-size: 30rpx;
-  line-height: 1.6;
-  background-color: #ffffff;
-}
-
-/* 字数统计（底部栏） */
 .word-count {
-  padding: 16rpx 24rpx;
   font-size: 26rpx;
   color: #888888;
-  background-color: #f5f5f5;
-  border-top: 1rpx solid #e5e5e5;
-  text-align: right;
 }
 </style>

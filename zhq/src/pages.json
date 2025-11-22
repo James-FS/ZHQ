@@ -97,6 +97,12 @@
 			"style": {
 				"navigationBarTitleText": "我的简历"
 			}
+		},
+		{
+			"path": "pages/user-detail/user-detail",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
 		}
 	],
 	"tabBar": {
