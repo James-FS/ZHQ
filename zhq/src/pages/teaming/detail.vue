@@ -11,7 +11,9 @@
         <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
         <view class="title-text">
           基于uniapp开发的跨平台移动应用实战
-           <i class="iconfont icon-shoucang"></i>
+           <i class="iconfont icon-shoucang"
+           :class="{'collected':collectionStatus}"
+           ></i>
            <i class="iconfont icon-gengduo" @tap="openMenu"></i>
         </view>
       </view>
@@ -66,9 +68,10 @@ import TabMenu from '../../components/Tab-menu.vue';
 const teamID=ref(null);
 const token = uni.getStorageSync('token');
 let collectionStatus=ref()
-onLoad((options)=>{
-  teamID.value=options.id;
-  getCollectionStatus()
+onLoad(async(options)=>{
+  console.log(options);
+  teamID.value=options.team_id;
+  getCollectionStatus();
 })
 
 const html = ref(`
@@ -157,7 +160,7 @@ async function getCollectionStatus(){
   console.log(teamID);
   try{
     const res=await uni.request({
-      url:`${global.API_BASE_URL}/api/v1/collection/status/${teamID.value}`,
+      url:`${global.API_BASE_URL}/api/v1/user/collection/status?team_id=${teamID.value}`,
       method:"GET",
       header:{
       'Authorization':`Bearer ${token}`,
@@ -181,6 +184,8 @@ async function getCollectionStatus(){
     icon: 'none'});
   }
 }
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -243,6 +248,11 @@ async function getCollectionStatus(){
     align-items: center;
     .iconfont.icon-gengduo{
       font-size:54rpx;
+    }
+    .iconfont.icon-shoucang{
+      &.collected{
+        color:yellow;
+      }
     }
   }
 }

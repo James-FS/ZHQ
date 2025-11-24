@@ -106,8 +106,9 @@ let mockData = ref([
 let total = ref()
 const token = uni.getStorageSync('token')
 function getDetail(id){
+  console.log(id);
   uni.navigateTo({
-    url:`/pages/teaming/detail?id=${id}`
+    url:`/pages/teaming/detail?team_id=${id}`
   })
 }
 //示例接口
@@ -150,7 +151,7 @@ async function getUserInfo(){
 }
 onMounted(()=>{
   getTeamList();
-  getUserInfo();
+  // getUserInfo();
 })
 </script>
 
