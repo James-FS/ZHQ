@@ -13,6 +13,7 @@
           基于uniapp开发的跨平台移动应用实战
            <i class="iconfont icon-shoucang"
            :class="{'collected':collectionStatus}"
+           @tap="removeCollection"
            ></i>
            <i class="iconfont icon-gengduo" @tap="openMenu"></i>
         </view>
@@ -27,10 +28,12 @@
       <!-- 项目详情 - 有左右间距 -->
       <view class="detail-info">
         <text class="info-label">项目周期：</text>
-        <text class="info-value">4 周</text>
+        <!-- <text class="info-value">{{ teamDetails.value.project_cycle }}</text> -->
         <text class="info-label">招募人数：</text>
         <text class="info-value">5 人</text>
         <text class="info-label">预期成果：</text>
+        <text class="info-value">发表一篇论文以及申请专利</text>
+        <text class="info-label">所需技能：</text>
         <text class="info-value">发表一篇论文以及申请专利</text>
       </view>
 
@@ -69,9 +72,10 @@ import { api } from '@/utils/index'
 const teamID=ref(null);
 const token = uni.getStorageSync('token');
 let collectionStatus=ref()
+let teamDetails=ref()
 onLoad(async(options)=>{
   teamID.value=options.team_id;
-  fetchDetails();
+  await fetchDetails();
   getCollectionStatus();
 })
 
@@ -154,7 +158,21 @@ const openMenu=()=>{
 }
 
 async function fetchDetails(){
-    await api.getTeamDetails(teamID.value);
+  try{
+    const res = await api.getTeamDetails(teamID.value);
+    if(res.code===0){
+      teamDetails.value=res.data;
+      console.log("details",teamDetails);
+    }
+    else{
+      throw new Error(res.message);
+    }
+  }catch(err){
+     uni.showToast({
+            title: err.message || '网络错误',
+            icon: 'none'
+        });
+  }
 }
 
 async function getCollectionStatus(){
@@ -185,7 +203,10 @@ async function getCollectionStatus(){
   }
 }
 
-
+async function removeCollection(){
+  console.log("t:",teamID.value);
+  const res=await api.removeCollection(teamID.value);
+}
 </script>
 
 <style lang="scss" scoped>
